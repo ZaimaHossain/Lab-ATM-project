@@ -2,6 +2,7 @@
 #include <stdlib.h>
 void printWelcomeMessage();
 void optionsMenu();
+void checkBalance();
 
 
 struct accINFO
@@ -12,11 +13,17 @@ struct accINFO
 };
 
 struct accINFO acc[1000];
+int index=-1;
+FILE *acc_file;
 
 int main()
 {
     void printWelcomeMessage();
+    system("color 3f");
+
+    return 0;
 }
+
 void printWelcomeMessage()
 {
     printf("\t * * * * * * * * * * * * * * * *");
@@ -44,7 +51,7 @@ void optionsMenu()
     case 0:
         exit(0);
     case 1:
-        //checkBalance();
+        checkBalance();
         break;
     case 2:
         //deposit();
@@ -54,6 +61,16 @@ void optionsMenu()
         break;
     case 4:
         //PINchange();
-        break;
     }
+}
+
+void checkBalance()
+{
+    system("cls");
+    printf("\n\nYour current balance is Tk. %.2f\n", acc[index].balance);
+
+    printf("\nPress any key to go back to HOME page...");
+    getch();
+    optionsMenu();
+
 }
