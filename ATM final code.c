@@ -7,6 +7,7 @@ void login();
 void optionsMenu();
 void checkBalance();
 void deposit();
+void withdraw();
 
 struct accINFO
 {
@@ -132,7 +133,7 @@ void optionsMenu()
         deposit();
         break;
     case 3:
-        //withdraw();
+        withdraw();
         break;
     case 4:
         //PINchange();
@@ -176,3 +177,31 @@ void deposit()
     optionsMenu();
 
 }
+
+void withdraw()
+{
+    float w;
+    FILE *fileW;
+    system("cls");
+
+    fileW = fopen("INFO.txt", "w");
+
+    printf("\n\nHow much money do you want to withdraw: ");
+    scanf("%f", &w);
+
+    int i;
+    acc[index].balance -= w;
+    for(i=0;i<serial_no;i++)
+    {
+        fprintf(fileW, "%d %d %lf\n", acc[i].acc_num, acc[i].pin, acc[i].balance);
+    }
+    printf("Your current balance is Tk.%.2f\n",acc[index].balance);
+
+    fclose(fileW);
+    printf("\nPress any key to go back to HOME page...");
+    getch();
+
+    optionsMenu();
+}
+
+
