@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 void printWelcomeMessage();
+int checkAccount(int user_acc);
 void login();
 void optionsMenu();
 void checkBalance();
@@ -31,6 +32,17 @@ void printWelcomeMessage()
     printf("\t * * * * * * * * * * * * * * * *");
     printf("\n\n\t *   WELCOME to our mini ATM   *");
     printf("\n\n\t * * * * * * * * * * * * * * * *\n\n");
+}
+
+int checkAccount(int user_acc)
+{
+    int i;
+    for(i=0; i<serial_no; i++)
+    {
+        if(acc[i].acc_num == user_acc)
+            return i;
+    }
+    return -1;
 }
 
 void login()
