@@ -1,5 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<conio.h>
+
 void printWelcomeMessage();
 int checkAccount(int user_acc);
 int checkPin(int user_acc, int PIN);
@@ -8,6 +11,7 @@ void optionsMenu();
 void checkBalance();
 void deposit();
 void withdraw();
+void PINchange();
 
 struct accINFO
 {
@@ -136,7 +140,7 @@ void optionsMenu()
         withdraw();
         break;
     case 4:
-        //PINchange();
+        PINchange();
     }
 }
 
@@ -204,4 +208,39 @@ void withdraw()
     optionsMenu();
 }
 
+void PINchange()
+{
+
+    int user_pin, new_pin;
+    system("cls");
+
+    printf("\n\nEnter your current PIN: ");
+    scanf("%d", &user_pin);
+    int i;
+
+    if(user_pin == acc[index].pin)
+    {
+        printf("Please enter your new PIN: ");
+        scanf("%d", &new_pin);
+        acc[index].pin = new_pin;
+        printf("PIN changed!\n");
+        FILE *filet;
+        filet = fopen("INFO.txt", "w");
+        for(i=0;i<serial_no;i++){
+            fprintf(filet, "%d %d %.2f\n", acc[i].acc_num, acc[i].pin, acc[i].balance);
+        }
+        fclose(filet);
+    }
+    else
+    {
+        printf("Invalid PIN\n");
+        PINchange();
+
+    }
+    printf("\nPress any key to go back to HOME page...");
+    getch();
+
+    optionsMenu();
+
+}
 
