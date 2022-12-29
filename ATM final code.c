@@ -2,6 +2,7 @@
 #include <stdlib.h>
 void printWelcomeMessage();
 int checkAccount(int user_acc);
+int checkPin(int user_acc, int PIN);
 void login();
 void optionsMenu();
 void checkBalance();
@@ -43,6 +44,17 @@ int checkAccount(int user_acc)
             return i;
     }
     return -1;
+}
+
+int checkPin(int user_acc, int PIN)
+{
+    int i=checkAccount(user_acc);
+    if(i==-1)
+        return 0;
+    if(acc[i].pin == PIN)
+        return 1;
+
+    return 0;
 }
 
 void login()
