@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 void printWelcomeMessage();
+void login();
 void optionsMenu();
 void checkBalance();
-
 
 struct accINFO
 {
@@ -13,13 +13,15 @@ struct accINFO
 };
 
 struct accINFO acc[1000];
+int serial_no;
 int index=-1;
 FILE *acc_file;
 
 int main()
 {
-    void printWelcomeMessage();
     system("color 3f");
+
+    login();
 
     return 0;
 }
@@ -31,6 +33,54 @@ void printWelcomeMessage()
     printf("\n\n\t * * * * * * * * * * * * * * * *\n\n");
 }
 
+void login()
+{
+    int u_acc;
+    int u_pin;
+    printWelcomeMessage();
+
+    acc_file=fopen("INFO.txt","r");
+
+    int i=0;
+    while(fscanf(acc_file,"%d %d %f",&acc[i].acc_num, &acc[i].pin,&acc[i].balance)==3)
+    {
+        i++;
+    }
+    serial_no=i;
+
+
+    while(1)
+    {
+        printf("\nEnter your account number:");
+        scanf("%d", &u_acc);
+        index=checkAccount(u_acc);
+
+        if(index>=0)
+        {
+            while(1)
+            {
+                printf("Enter your 4 digit PIN:");
+                scanf("%d", &u_pin);//gets(u_pin);
+                if(checkPin(u_acc,u_pin))
+                {
+                    optionsMenu();
+                    break;
+                }
+                else
+                {
+                    printf("\nInvalid PIN.\n");
+                }
+            }
+            break;
+        }
+        else
+        {
+            printf("\nNo valid accountNo. found.\n");
+        }
+    }
+    fclose(acc_file);
+
+}
 void optionsMenu()
 {
     system("cls");
