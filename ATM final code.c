@@ -56,11 +56,19 @@ int checkPin(int user_acc, int PIN)
 {
     int i=checkAccount(user_acc);
     if(i==-1)
+    {
         return 0;
-    if(acc[i].pin == PIN)
-        return 1;
+    }
 
-    return 0;
+    if(acc[i].pin == PIN)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+
 }
 
 void login()
@@ -90,7 +98,7 @@ void login()
             while(1)
             {
                 printf("Enter your 4 digit PIN:");
-                scanf("%d", &u_pin);//gets(u_pin);
+                scanf("%d", &u_pin);
                 if(checkPin(u_acc,u_pin))
                 {
                     optionsMenu();
@@ -149,7 +157,7 @@ void checkBalance()
     system("cls");
     printf("\n\nYour current balance is Tk. %.2f\n", acc[index].balance);
 
-    printf("\nPress any key to go back to HOME page...");
+    printf("\nPress any key to go back to options page...");
     getch();
     optionsMenu();
 
@@ -169,13 +177,13 @@ void deposit()
     acc[index].balance += d;
     int i;
     for(i=0; i< serial_no;i++){
-        fprintf(fileD, "%d %d %lf\n", acc[i].acc_num, acc[i].pin, acc[i].balance);
+        fprintf(fileD, "%d %d %f\n", acc[i].acc_num, acc[i].pin, acc[i].balance);
     }
     printf("Your current balance is Tk.%.2f\n",acc[index].balance);
 
 
     fclose(fileD);
-    printf("\nPress any key to go back to HOME page...");
+    printf("\nPress any key to go back to options page...");
     getch();
 
     optionsMenu();
@@ -197,12 +205,12 @@ void withdraw()
     acc[index].balance -= w;
     for(i=0;i<serial_no;i++)
     {
-        fprintf(fileW, "%d %d %lf\n", acc[i].acc_num, acc[i].pin, acc[i].balance);
+        fprintf(fileW, "%d %d %f\n", acc[i].acc_num, acc[i].pin, acc[i].balance);
     }
     printf("Your current balance is Tk.%.2f\n",acc[index].balance);
 
     fclose(fileW);
-    printf("\nPress any key to go back to HOME page...");
+    printf("\nPress any key to go back to options page...");
     getch();
 
     optionsMenu();
@@ -237,7 +245,7 @@ void PINchange()
         PINchange();
 
     }
-    printf("\nPress any key to go back to HOME page...");
+    printf("\nPress any key to go back to options page...");
     getch();
 
     optionsMenu();
